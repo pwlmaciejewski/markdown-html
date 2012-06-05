@@ -1,4 +1,8 @@
-markdown-html
-=============
+# markdown-html
+Command line *markdown* to *html* conversion. 
 
-Command line tool for markdown to html coversion.
+## Installation
+	npm install -g markdown-html
+
+## Synopsis
+	markdown-html [--style path_to_alternate_style] input.md
