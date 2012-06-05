@@ -2,16 +2,26 @@
   "author": "Pawel Maciejewski <fragphace@gmail.com> (http://fragphace.pl)",
   "name": "markdown-html",
   "description": "Command line tool for markdown to html conversion.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/fragphace/markdown-html",
   "repository": {
     "type": "git",
     "url": "git://github.com/fragphace/markdown-html.git"
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "optionalDependencies": {},
+  "dependencies": {
+    "optimist": "~0.3.4",
+    "node-markdown": "~0.1.0",
+    "mu2": "~0.5.14"
+  },
   "engines": {
     "node": "*"
+  },
+  "keywords": [
+    "markdown",
+    "html",
+    "shell"
+  ],
+  "bin": {
+    "markdown-html": "./bin/markdown-html.js"
   }
 }

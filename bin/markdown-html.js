@@ -14,22 +14,24 @@ if (!input) {
 }
 var content = markdown(fs.readFileSync(input, 'utf-8'));
 
-// Load template.
-var templatePath = argv.template || __dirname + '/template.html';
+// Check for template and style files.
+var templateDir = __dirname + '/../template';
+var templatePath = argv.template || templateDir + '/template.html';
+var stylePath = argv.style || templateDir + '/style.css';
+
 if (!path.existsSync(templatePath)) {
 	throw new Error('Template does not exist.');
 }
-var template = fs.readFileSync(templatePath, 'utf-8');
 
-// Load style.
-var stylePath = argv.style || __dirname + '/style.css';
 if (!path.existsSync(stylePath)) {
 	throw new Error('Style does not exist.');
 }
+
+// Load style.
 var style = fs.readFileSync(stylePath);
 
-// Compile template and send it to stdout.
-mustache.compileAndRender(__dirname + '/template.html', { 
+// Compile template and pipe it out.
+mustache.compileAndRender(templatePath, { 
 	content: content,
 	style: style
 }).pipe(process.stdout);
