@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var argv = require('optimist').argv;
+var markdown = require('node-markdown').Markdown;
+var fs = require('fs');
+var path = require('path');
+var mustache = require('mu2');
+var util = require('util');
+
+// Get generate html from md.
+var input = argv._[0];
+if (!input) {
+	return;
+}
+var content = markdown(fs.readFileSync(input, 'utf-8'));
+
+// Load template.
+var templatePath = argv.template || __dirname + '/template.html';
+if (!path.existsSync(templatePath)) {
+	throw new Error('Template does not exist.');
+}
+var template = fs.readFileSync(templatePath, 'utf-8');
+
+// Load style.
+var stylePath = argv.style || __dirname + '/style.css';
+if (!path.existsSync(stylePath)) {
+	throw new Error('Style does not exist.');
+}
+var style = fs.readFileSync(stylePath);
+
+// Compile template and send it to stdout.
+mustache.compileAndRender(__dirname + '/template.html', { 
+	content: content,
+	style: style
+}).pipe(process.stdout);
