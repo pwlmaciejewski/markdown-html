@@ -27,11 +27,15 @@ if (!path.existsSync(stylePath)) {
 	throw new Error('Style does not exist.');
 }
 
+// Set title.
+var title = argv.title ? argv.title : path.basename(input, path.extname(input));
+
 // Load style.
 var style = fs.readFileSync(stylePath);
 
 // Compile template and pipe it out.
 mustache.compileAndRender(templatePath, { 
 	content: content,
-	style: style
+	style: style,
+	title: title
 }).pipe(process.stdout);

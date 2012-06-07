@@ -62,8 +62,12 @@ ul, ol,
 p,
 code, pre,
 hr {
-	line-height: 1.2em;
-	margin-bottom: 1em;
+	line-height: 1.5em;
+	margin: 1.5em 0 0.5em 0;
+}
+
+*:first-child {
+	margin-top: 0;
 }
 
 /* Headers */
@@ -76,19 +80,19 @@ h1 {
 }
 
 h2 {
-	font-size: 3em;
-}
-
-h3 {
 	font-size: 2.5em;
 }
 
+h3 {
+	font-size: 2em;
+}
+
 h4 {
-	font-size: 2em
+	font-size: 1.5em
 }
 
 h5 {
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 
 h6 {
@@ -138,6 +142,14 @@ a:visited {
   color: #261A3B;
 }
 
+/* Inlines */
+strong {
+	font-weight: bold;
+}
+
+em {
+	font-style: italic;
+}
 
 /* Container */
 .container {
