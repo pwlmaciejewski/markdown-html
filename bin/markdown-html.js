@@ -1,11 +1,40 @@
 #!/usr/bin/env node
 
-var argv = require('optimist').argv;
+
 var markdown = require('node-markdown').Markdown;
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mu2');
 var util = require('util');
+
+// Tempalte dir - need to be set before options evaluation
+var templateDir = __dirname + '/../template';
+
+// Optimist command-line options
+var optimist = 	require('optimist')
+								.alias({
+									't': 'title',
+									'l': 'template',
+									's': 'style',
+									'h': 'help'
+								})
+								.describe({
+									'title': 'Generated page title',
+									'style': 'Path to custom stylesheet',
+									'template': 'Path to custom mustache template',
+									'help': 'This screen'
+								})
+								.default({
+									'style': path.resolve(templateDir + '/style.css'),
+									'template': path.resolve(templateDir + '/template.html')
+								});
+var argv = optimist.argv;
+
+// Help
+if (argv.help) {
+	optimist.showHelp(console.log);
+	process.exit(0);
+}
 
 // Get generate html from md.
 var input = argv._[0];
@@ -14,16 +43,11 @@ if (!input) {
 }
 var content = markdown(fs.readFileSync(input, 'utf-8'));
 
-// Check for template and style files.
-var templateDir = __dirname + '/../template';
-var templatePath = argv.template || templateDir + '/template.html';
-var stylePath = argv.style || templateDir + '/style.css';
-
-if (!path.existsSync(templatePath)) {
+if (!path.existsSync(argv.template)) {
 	throw new Error('Template does not exist.');
 }
 
-if (!path.existsSync(stylePath)) {
+if (!path.existsSync(argv.s)) {
 	throw new Error('Style does not exist.');
 }
 
@@ -31,10 +55,10 @@ if (!path.existsSync(stylePath)) {
 var title = argv.title ? argv.title : path.basename(input, path.extname(input));
 
 // Load style.
-var style = fs.readFileSync(stylePath);
+var style = fs.readFileSync(argv.style);
 
 // Compile template and pipe it out.
-mustache.compileAndRender(templatePath, { 
+mustache.compileAndRender(argv.template, { 
 	content: content,
 	style: style,
 	title: title
