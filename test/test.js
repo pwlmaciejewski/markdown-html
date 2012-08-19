@@ -43,3 +43,10 @@ exports.help = function (test) {
 		test.done();
 	});
 };
+
+exports.style = function (test) {
+	mdhtml(['--script', __dirname + '/fixture/script.js', __dirname + '/fixture/basic.md'], function (err, stdout, stderr) {
+		test.notEqual(stdout.search('custom script'), -1, 'It should use user-specified script');
+		test.done();
+	});
+};

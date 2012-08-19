@@ -2,7 +2,7 @@
   "author": "Pawel Maciejewski <fragphace@gmail.com> (http://fragphace.pl)",
   "name": "markdown-html",
   "description": "Command line tool for markdown to html conversion.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/fragphace/markdown-html",
   "repository": {
     "type": "git",
