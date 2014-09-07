@@ -27,7 +27,7 @@ var optimist =  require('optimist')
         'template': 'Path to custom mustache template',
         'help': 'This screen',
         'output-file': 'Path to output file (stdout if not specified)',
-        'i': 'If set, stdin will be used instead of file'
+        'stdin': 'If set, stdin will be used instead of file'
     })
     .default({
         'style': path.resolve(templateDir + '/style.css'),
