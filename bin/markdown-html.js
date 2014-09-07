@@ -17,7 +17,8 @@ var optimist =  require('optimist')
         's': 'style',
         'j': 'script',
         'h': 'help',
-        'o': 'output-file'
+        'o': 'output-file',
+        'i': 'stdin'
     })
     .describe({
         'title': 'Generated page title',
@@ -25,7 +26,8 @@ var optimist =  require('optimist')
         'script': 'Path to custom javascript',
         'template': 'Path to custom mustache template',
         'help': 'This screen',
-        'output-file': 'Path to output file (stdout if not specified)'
+        'output-file': 'Path to output file (stdout if not specified)',
+        'i': 'If set, stdin will be used instead of file'
     })
     .default({
         'style': path.resolve(templateDir + '/style.css'),
@@ -39,45 +41,64 @@ if (argv.help) {
     process.exit(0);
 }
 
-// Get generate html from md.
-var input = argv._[0];
-if (!input) {
-    return;
-}
-var content = markdown(fs.readFileSync(input, 'utf-8'));
 
-// File existance check
-if (!fs.existsSync(argv.template)) {
-    throw new Error('Template does not exist.');
-}
+if (argv.i) {
 
-if (!fs.existsSync(argv.style)) {
-    throw new Error('Style does not exist.');
-}
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+     
+    process.stdin.on('data', function (chunk) {
+        runWithContent(chunk);
+    });
 
-if (argv.script && !fs.existsSync(argv.script)) {
-    throw new Error('Script does not exist.');
-}
+} else { 
 
-// Set title.
-var title = argv.title ? argv.title : path.basename(input, path.extname(input));
+    // Get generate html from md.
+    var input = argv._[0];
+    if (!input) {
+        return;
+    }
+    runWithContent(fs.readFileSync(input, 'utf-8'));
 
-// Load style.
-var style = fs.readFileSync(argv.style);
-
-// Load script
-var script = argv.script ? fs.readFileSync(argv.script) : '';
-
-// Output
-var out = process.stdout;
-if (argv['output-file']) {
-    out = fs.createWriteStream(path.resolve(argv['output-file']));
 }
 
-// Compile template and pipe it out.
-mustache.compileAndRender(argv.template, { 
-    content: content,
-    style: style,
-    title: title,
-    script: script
-}).pipe(out);
+function runWithContent(content) {
+
+    content = markdown(content);
+
+    // File existance check
+    if (!fs.existsSync(argv.template)) {
+        throw new Error('Template does not exist.');
+    }
+
+    if (!fs.existsSync(argv.style)) {
+        throw new Error('Style does not exist.');
+    }
+
+    if (argv.script && !fs.existsSync(argv.script)) {
+        throw new Error('Script does not exist.');
+    }
+
+    // Set title.
+    var title = argv.title ? argv.title : path.basename(input, path.extname(input));
+
+    // Load style.
+    var style = fs.readFileSync(argv.style);
+
+    // Load script
+    var script = argv.script ? fs.readFileSync(argv.script) : '';
+
+    // Output
+    var out = process.stdout;
+    if (argv['output-file']) {
+        out = fs.createWriteStream(path.resolve(argv['output-file']));
+    }
+
+    // Compile template and pipe it out.
+    mustache.compileAndRender(argv.template, { 
+        content: content,
+        style: style,
+        title: title,
+        script: script
+    }).pipe(out);
+}
