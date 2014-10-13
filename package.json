@@ -23,5 +23,11 @@
   ],
   "bin": {
     "markdown-html": "./bin/markdown-html.js"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.9.0"
+  }, 
+  "scripts": {
+    "test": "nodeunit test/test.js"
   }
 }
