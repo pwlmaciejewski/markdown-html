@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var markdown = require('node-markdown').Markdown;
+var marked = require('marked');
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mu2');
@@ -63,8 +63,8 @@ if (argv.i) {
 }
 
 function runWithContent(content) {
-
-    content = markdown(content);
+    var tokens = marked.lexer(content);
+    content = marked.parser(tokens);
 
     // File existance check
     if (!fs.existsSync(argv.template)) {

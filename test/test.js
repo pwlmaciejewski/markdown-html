@@ -61,7 +61,7 @@ exports.stdin = function (test) {
 	});
 
 	io.stdout.on('end', function () {
-		test.ok(out.match(/<h2>Test/).length);
+		test.ok(out.match(/<h2[^>]*>Test/).length);
 		test.done();
 	});
 

@@ -9,9 +9,9 @@
     "url": "git://github.com/fragphace/markdown-html.git"
   },
   "dependencies": {
-    "optimist": "~0.3.4",
-    "node-markdown": "~0.1.0",
-    "mu2": "~0.5.14"
+    "marked": "^0.3.2",
+    "mu2": "~0.5.14",
+    "optimist": "~0.3.4"
   },
   "engines": {
     "node": "*"
