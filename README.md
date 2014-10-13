@@ -20,7 +20,7 @@
 	npm install -g markdown-html
 
 ## Usage
-	markdown-html [--style path_to_alternate_style] input.md
+	markdown-html [--style path_to_your_style] input.md
 
 For more options:
 
