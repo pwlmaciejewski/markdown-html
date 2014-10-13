@@ -62,8 +62,21 @@ if (argv.i) {
 
 }
 
-function runWithContent(content) {
-    var tokens = marked.lexer(content);
+function runWithContent(md) {
+    var tokens = marked.lexer(md);
+    
+    // Set title.
+    var title = path.basename(input, path.extname(input));
+    for (var i = 0; i < tokens.length; i += 1) {
+        if (tokens[i].type === 'heading') {
+            title = tokens[i].text;
+            break;
+        }
+    }
+    if (argv.title) {
+        title = argv.title;
+    }
+
     content = marked.parser(tokens);
 
     // File existance check
@@ -79,8 +92,6 @@ function runWithContent(content) {
         throw new Error('Script does not exist.');
     }
 
-    // Set title.
-    var title = argv.title ? argv.title : path.basename(input, path.extname(input));
 
     // Load style.
     var style = fs.readFileSync(argv.style);

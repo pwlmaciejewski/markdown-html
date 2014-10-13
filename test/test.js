@@ -61,9 +61,23 @@ exports.stdin = function (test) {
 	});
 
 	io.stdout.on('end', function () {
-		test.ok(out.match(/<h2[^>]*>Test/).length);
+		test.ok(out.match(/<h2[^>]*>Test/));
 		test.done();
 	});
 
 	io.stdin.end('## Test');
+};
+
+exports['First header is a title'] = function (test) {
+	mdhtml([__dirname + '/fixture/firstHeaderIsATitle.md'], function (err, stdout, stderr) {
+		test.ok(stdout.match(/<title>XYZ<\/title>/));
+		test.done();
+	});
+};
+
+exports['Title option takes precedence by first header'] = function (test) {
+	mdhtml(['--title', 'foo',__dirname + '/fixture/firstHeaderIsATitle.md'], function (err, stdout, stderr) {
+		test.ok(stdout.match(/<title>foo<\/title>/));
+		test.done();
+	});
 };

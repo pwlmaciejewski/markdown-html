@@ -1,5 +1,3 @@
-# Hello world
-
 This is basic markdown
 
 With:
