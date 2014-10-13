@@ -1,4 +1,5 @@
-var execFile = require('child_process').execFile;
+var childProcess = require('child_process');
+var execFile = childProcess.execFile;
 
 var mdhtml = function () {
 	var args = Array.prototype.slice.call(arguments);
@@ -49,4 +50,20 @@ exports.script = function (test) {
 		test.notEqual(stdout.search('custom script'), -1, 'It should use user-specified script');
 		test.done();
 	});
+};
+
+exports.stdin = function (test) {	
+	var io = childProcess.spawn(__dirname + '/../bin/markdown-html.js', ['-i']);
+	var out = "";
+
+	io.stdout.on('data', function (chunk) {
+		out += chunk.toString();
+	});
+
+	io.stdout.on('end', function () {
+		test.ok(out.match(/<h2>Test/).length);
+		test.done();
+	});
+
+	io.stdin.end('## Test');
 };
