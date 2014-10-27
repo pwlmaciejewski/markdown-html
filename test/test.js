@@ -4,7 +4,7 @@ var execFile = childProcess.execFile;
 
 var mdhtml = function () {
     var args = Array.prototype.slice.call(arguments);
-    args.unshift(__dirname + '/../bin/markdown-html.js');
+    args.unshift(__dirname + '/../index.js');
     return execFile.apply(this, args);
 };
 
@@ -54,7 +54,7 @@ test('Script', function (done) {
 });
 
 test('Stdin', function (done) {
-    var io = childProcess.spawn(__dirname + '/../bin/markdown-html.js', ['-i']);
+    var io = childProcess.spawn(__dirname + '/../index.js', ['-i']);
     var out = "";
 
     io.stdout.on('data', function (chunk) {
