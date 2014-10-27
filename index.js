@@ -2,8 +2,6 @@
 
 var path = require('path');
 var templateDir = __dirname + '/template';
-
-// Optimist command-line options
 var optimist =  require('optimist')
     .alias({
         't': 'title',
@@ -13,7 +11,8 @@ var optimist =  require('optimist')
         'h': 'help',
         'o': 'output-file',
         'i': 'stdin',
-        'w': 'watch'
+        'w': 'watch',
+        'v': 'version'
     })
     .describe({
         'title': 'Generated page title',
@@ -26,15 +25,17 @@ var optimist =  require('optimist')
         'watch': 'Watch mode'
     })
     .boolean('watch')
+    .boolean('version')
     .default({
         'style': path.resolve(templateDir + '/style.css'),
         'template': path.resolve(templateDir + '/template.html')
     });
 
 var argv = optimist.argv;
-
-if (argv.help) {
-    optimist.showHelp(console.log);
+if (argv.v) {
+    console.log(require('./lib/version-string')());
+} else if (argv.h) {
+    console.log(require('./lib/help')(optimist));
 } else if (argv.i) {
     require('./lib/stdio')(argv);
 } else if (argv.w) {
