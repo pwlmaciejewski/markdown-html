@@ -18,17 +18,15 @@
 
 ## Usage
 
-Basic usage:
-
-	markdown-html in.md > out.html
-
-or 
+Basic usage: 
+    
     markdown-html in.md -o out.html
 
 
-Use watch mode for maximum pleasure:
+Use in watch mode for maximum pleasure:
 
     markdown-html -w in.md -o out.html
+
 
 List of options:
 
