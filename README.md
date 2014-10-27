@@ -8,7 +8,7 @@
 </tr>
 <tr>
 <td>Description</td>
-<td>Command line *markdown* to *html* conversion. You can supply your own template (mustache), styles and scripts.</td>
+<td>Command line markdown to html conversion. You can supply your own template (mustache), styles and scripts.</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -16,15 +16,27 @@
 </tr>
 </table>
 
-## Installation
-	npm install -g markdown-html
-
 ## Usage
-	markdown-html [--style path_to_your_style] input.md
 
-For more options:
+Basic usage:
 
-	markdown-html -h
+	markdown-html in.md > out.html
 
-## Tests
-	npm test
+or 
+    markdown-html in.md -o out.html
+
+
+Use watch mode for maximum pleasure:
+
+    markdown-html -w in.md -o out.html
+
+List of options:
+
+    --title, -t        Generated page title
+    --style, -s        Path to custom stylesheet
+    --script, -j       Path to custom javascript                    
+    --template, -l     Path to custom mustache template
+    --help, -h         This screen
+    --output-file, -o  Path to output file (stdout if not specified)
+    --stdin, -i        If set, stdin will be used instead of file
+    --watch, -w        Watch mode
