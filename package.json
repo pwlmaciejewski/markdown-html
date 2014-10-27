@@ -22,7 +22,7 @@
     "shell"
   ],
   "bin": {
-    "markdown-html": "./bin/markdown-html.js"
+    "markdown-html": "./index.js"
   },
   "devDependencies": {
     "mocha": "^2.0.1",
