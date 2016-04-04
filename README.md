@@ -1,4 +1,4 @@
-# markdown-html [![NPM version](https://badge.fury.io/js/markdown-html.svg)](http://badge.fury.io/js/markdown-html) [![Build Status](https://travis-ci.org/fragphace/markdown-html.svg)](https://travis-ci.org/fragphace/markdown-html)
+# markdown-html [![NPM version](https://badge.fury.io/js/markdown-html.svg)](http://badge.fury.io/js/markdown-html) [![Build Status](https://travis-ci.org/pwlmaciejewski/markdown-html.svg)](https://travis-ci.org/pwlmaciejewski/markdown-html)
 
 ## Information
 
